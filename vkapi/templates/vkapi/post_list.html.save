@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>VkApiTest</title>
+    </head>
+    <body>
+        <p>Hi there!</p>
+{% for post in posts %}
+    	{% for post in posts %}
+    {{ post }}
+{% endfor %}
+	{{ post.vk_id }}
+{% endfor %}
+        <p>It works!</p>
+    </body>
+</html>

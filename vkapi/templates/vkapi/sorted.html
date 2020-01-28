@@ -1,0 +1,19 @@
+{% load static %}
+<html>
+    <head>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<title>VkApiTest</title>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">    
+    </head>
+    <body>
+{%for a in posts%}
+<br>
+<p>{{a.vk_id}}</p>
+<p>{{a.first_name}}</p>
+<p>{{a.last_name}}</p>
+<p>{{a.access_token}}</p>
+</br>
+{%endfor%}
+</body>
+</html>
