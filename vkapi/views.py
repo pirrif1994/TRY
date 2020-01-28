@@ -28,7 +28,7 @@ def callback(request):
     serializer = ProfileSerializer(profile)
     serializer = ProfileSerializer(profile)
     posts = Profile.objects.all()
-    return HttpResponseRedirect('/?done')
+    return HttpResponseRedirect('/api/profiles/')
 
 
 @api_view(['GET'])
