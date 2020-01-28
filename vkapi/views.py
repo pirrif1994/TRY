@@ -1,18 +1,19 @@
 import requests
-import io
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from .models import Profile
-from .profile_serializer import ProfileSerializer
+from .serializers import ProfileSerializer
 from django.http import HttpResponse
+from django.conf import settings
 
 @api_view(['GET'])
 def callback(request):
     code = request.GET.get('code')
     if not code:
         return JsonResponse({})
-    url = 'https://oauth.vk.com/access_token?client_id=7297032&client_secret=kPY7OUtPFEf8rqIGeFo3&redirect_uri=http://localhost:8000/api/callback/&code=' + code
+    url = f'https://oauth.vk.com/access_token?client_id={settings.VK_CLIENT_ID}&client_secret={settings.VK_SECRET}&redirect_uri=http://localhost:8000/api/callback/&code={code}'
     auth_info = requests.post(url).json()
     access_token = auth_info['access_token']
     user_id = auth_info['user_id']
@@ -39,11 +40,11 @@ def profiles(request):
 
 
 @api_view(['GET'])
-def _profiles(request, profile_id):
+def profiles_details(request, profile_id):
     try:
         profiles = Profile.objects.get(id=profile_id)
         serializer = ProfileSerializer(profiles)
         return Response(serializer.data)
     except Profile.DoesNotExist:
-        return HttpResponse("<h1>Error: Wrong id<h1>")
+        return JsonResponse({"Detail":"Profile Does Not Exist", "status":"404"})
     
